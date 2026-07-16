@@ -90,6 +90,14 @@ app.post("/api/login", (req, res) => {
 // The React frontend is now hosted separately on Netlify.
 // This API server only serves the /api/* routes.
 
+// Serve React build
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+// React routing
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
+
 // ─── Start Server ───────────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`🚀 RVCE Todo App running on http://localhost:${PORT}`);
